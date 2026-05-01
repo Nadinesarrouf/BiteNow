@@ -1,0 +1,6 @@
+@BiteNow_HostAddress = http://localhost:5133
+
+GET {{BiteNow_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
