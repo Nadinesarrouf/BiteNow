@@ -1,8 +1,20 @@
-using BiteNow.DTOs;
 namespace BiteNow.DTOs;
 
-public class UserOrdersDto
-{
-    public int UserId { get; set; }
-    public List<OrderDto> Orders { get; set; }
-}
+public record RegisterUserRequest(
+    string Name,
+    string Email,
+    string Password
+);
+
+public record LoginRequest(
+    string Email,
+    string Password
+);
+
+public record UserResponse(
+    int Id,
+    string Name,
+    string Email,
+    string Role,
+    DateTime CreatedAt
+);

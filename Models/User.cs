@@ -1,15 +1,14 @@
-namespace BiteNow.Models
+namespace BiteNow.Models;
+
+public class User
 {
-    public class User
-    {
-        public int Id { get; set; }
+    public int Id { get; set; }
+    public string Name { get; set; } = string.Empty;
+    public string Email { get; set; } = string.Empty;
+    public string PasswordHash { get; set; } = string.Empty;
+    public string Role { get; set; } = "Customer"; // "Customer" | "Admin"
+    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
-        public string Username { get; set; } = string.Empty;
-
-        public string Email { get; set; } = string.Empty;
-
-        public string Password { get; set; } = string.Empty;
-
-        public List<Order> Orders { get; set; } = new List<Order>(); // Navigation property for related orders
-    }
+    // Navigation
+    public ICollection<Order> Orders { get; set; } = new List<Order>();
 }

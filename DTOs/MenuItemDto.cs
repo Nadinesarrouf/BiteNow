@@ -1,13 +1,27 @@
-using BiteNow.DTOs;
-
 namespace BiteNow.DTOs;
 
-public class MenuItemDto
+public record MenuItemResponse(
+    int Id,
+    string Name,
+    string Description,
+    decimal Price,
+    string Category,
+    bool IsAvailable,
+    DateTime CreatedAt
+);
 
-{
-    public int Id { get; set; }
-    public string Name { get; set; }
-    public string Description { get; set; }
-    public double Price { get; set; }
-    public bool IsAvailable { get; set; }
-}
+public record CreateMenuItemRequest(
+    string Name,
+    string Description,
+    decimal Price,
+    string Category,
+    bool IsAvailable = true
+);
+
+public record UpdateMenuItemRequest(
+    string Name,
+    string Description,
+    decimal Price,
+    string Category,
+    bool IsAvailable
+);

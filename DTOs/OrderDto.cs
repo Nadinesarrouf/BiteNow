@@ -1,13 +1,31 @@
-using BiteNow.DTOs;
-
 namespace BiteNow.DTOs;
 
-public class OrderDto
-{
-    public int Id { get; set; }
-    public DateTime CreatedAt { get; set; }
-    public string Status { get; set; }
-    public double TotalPrice { get; set; }
+public record PlaceOrderRequest(
+    int UserId,
+    string Notes,
+    List<OrderItemRequest> Items
+);
 
-    public List<OrderItemDto> Items { get; set; }
-}
+public record UpdateOrderStatusRequest(
+    string Status
+);
+
+public record OrderResponse(
+    int Id,
+    int UserId,
+    string UserName,
+    string Status,
+    string Notes,
+    decimal TotalAmount,
+    DateTime PlacedAt,
+    DateTime? UpdatedAt,
+    List<OrderItemResponse> Items
+);
+
+public record OrderSummaryResponse(
+    int Id,
+    string Status,
+    decimal TotalAmount,
+    int ItemCount,
+    DateTime PlacedAt
+);

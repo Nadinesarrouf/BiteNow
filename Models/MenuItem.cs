@@ -1,15 +1,15 @@
-namespace BiteNow.Models
+namespace BiteNow.Models;
+
+public class MenuItem
 {
-    public class MenuItem
-    {
-        public int Id { get; set; }
+    public int Id { get; set; }
+    public string Name { get; set; } = string.Empty;
+    public string Description { get; set; } = string.Empty;
+    public decimal Price { get; set; }          // Always decimal for money
+    public string Category { get; set; } = string.Empty;
+    public bool IsAvailable { get; set; } = true;
+    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
-        public string Name { get; set; }
-
-        public string Description { get; set; }
-
-        public decimal Price { get; set; }
-
-        public bool IsAvailable { get; set; }
-    }
+    // Navigation
+    public ICollection<OrderItem> OrderItems { get; set; } = new List<OrderItem>();
 }
