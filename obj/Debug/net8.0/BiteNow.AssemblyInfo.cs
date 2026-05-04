@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("BiteNow")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+609948b09bffb7baa1d4eda890cebe3df67fec35")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1b84e3609bac75e52631cffd97571a1d243a03ef")]
 [assembly: System.Reflection.AssemblyProductAttribute("BiteNow")]
 [assembly: System.Reflection.AssemblyTitleAttribute("BiteNow")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
