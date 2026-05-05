@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>BiteNow — My Orders</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml"/>
+  <link rel="stylesheet" href="css/style.css"/>
+  <link rel="stylesheet" href="css/orders.css"/>
+</head>
+<body>
+
+  <!-- ── Navbar ─────────────────────────────────────────── -->
+  <header class="navbar">
+    <a href="index.html" class="logo">🍔 BiteNow</a>
+    <nav id="nav-links"></nav>
+  </header>
+
+  <!-- ── Page ───────────────────────────────────────────── -->
+  <main class="page">
+    <div class="orders-header">
+      <h1 class="page-title">My Orders</h1>
+      <button class="btn btn-outline btn-sm" onclick="loadOrders()">
+        🔄 Refresh
+      </button>
+    </div>
+
+    <!-- Orders list injected here -->
+    <div id="orders-container">
+      <div class="spinner"></div>
+    </div>
+  </main>
+
+  <!-- ── Toast ──────────────────────────────────────────── -->
+  <div class="toast" id="toast"></div>
+
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/navbar.js"></script>
+  <script src="js/orders.js"></script>
+</body>
+</html>

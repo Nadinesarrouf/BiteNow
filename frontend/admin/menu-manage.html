@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>BiteNow Admin — Menu Items</title>
+
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml"/>
+  <link rel="stylesheet" href="../css/style.css"/>
+  <link rel="stylesheet" href="css/admin.css"/>
+</head>
+
+<body>
+
+  <header class="navbar">
+    <a href="dashboard.html" class="logo">⚙️ BiteNow Admin</a>
+    <nav id="nav-links"></nav>
+  </header>
+
+  <div class="admin-layout">
+
+    <aside class="sidebar">
+      <div class="sidebar-title">Main</div>
+      <a href="dashboard.html">📊 Dashboard</a>
+      <a href="menu-manage.html" class="active">🍽️ Menu Items</a>
+
+      <hr class="sidebar-divider"/>
+
+      <div class="sidebar-title">Orders</div>
+      <a href="orders.html">📋 All Orders</a>
+
+      <hr class="sidebar-divider"/>
+
+      <div class="sidebar-title">Account</div>
+      <a href="../index.html">🍔 Customer View</a>
+      <a href="#" onclick="adminLogout()">🚪 Logout</a>
+    </aside>
+
+    <main class="admin-main">
+
+      <div class="section-card-header" style="
+        margin-bottom:1.5rem;
+        padding:0;
+        display:flex;
+        justify-content:space-between;
+        align-items:center;
+      ">
+        <h1 class="page-title" style="margin:0">🍽️ Menu Items</h1>
+
+        <button class="btn btn-primary" style="height:42px" onclick="openAddModal()">
+          + Add Item
+        </button>
+      </div>
+
+      <div style="
+        display:flex;
+        gap:1rem;
+        margin-bottom:1.5rem;
+        flex-wrap:wrap;
+        align-items:center;
+      ">
+        <input
+          type="text"
+          id="filter-search"
+          placeholder="🔍 Search items..."
+          oninput="applyFilters()"
+          style="
+            padding:0.5rem 1rem;
+            border:1px solid var(--border);
+            border-radius:var(--radius);
+            font-size:0.92rem;
+            background:var(--surface);
+            flex:1;
+            min-width:180px;
+          "
+        />
+
+        <select
+          id="filter-category"
+          onchange="applyFilters()"
+          style="
+            padding:0.5rem 1rem;
+            border:1px solid var(--border);
+            border-radius:var(--radius);
+            font-size:0.92rem;
+            background:var(--surface);
+            min-width:150px;
+          "
+        >
+          <option value="">All Categories</option>
+        </select>
+
+        <select
+          id="filter-availability"
+          onchange="applyFilters()"
+          style="
+            padding:0.5rem 1rem;
+            border:1px solid var(--border);
+            border-radius:var(--radius);
+            font-size:0.92rem;
+            background:var(--surface);
+          "
+        >
+          <option value="">All</option>
+          <option value="available">Available</option>
+          <option value="unavailable">Unavailable</option>
+        </select>
+      </div>
+
+      <div class="section-card">
+        <div class="section-card-body">
+          <div id="menu-table-wrap">
+            <div class="spinner" style="margin:2rem auto"></div>
+          </div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <div class="modal-overlay" id="item-modal">
+    <div class="modal">
+
+      <button class="modal-close" onclick="closeModal()">✕</button>
+
+      <h2 id="modal-title">Add Menu Item</h2>
+
+      <div class="alert alert-error" id="modal-error"></div>
+
+      <div class="form-group">
+        <label for="f-name">Name *</label>
+        <input type="text" id="f-name" placeholder="e.g. Margherita Pizza"/>
+      </div>
+
+      <div class="form-group">
+        <label for="f-desc">Description *</label>
+        <textarea id="f-desc" placeholder="Brief description..."></textarea>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem">
+        <div class="form-group">
+          <label for="f-price">Price ($) *</label>
+          <input type="number" id="f-price" min="0.01" step="0.01" placeholder="0.00"/>
+        </div>
+
+        <div class="form-group">
+          <label for="f-category">Category *</label>
+          <input type="text" id="f-category" placeholder="e.g. Pizza"/>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label style="display:flex;align-items:center;gap:0.5rem">
+          <input type="checkbox" id="f-available" checked />
+          Available
+        </label>
+      </div>
+
+      <div class="form-group">
+        <label for="f-image">
+          Image URL
+          <span style="font-weight:400;color:var(--muted)">(optional)</span>
+        </label>
+
+        <input
+          type="url"
+          id="f-image"
+          placeholder="https://images.unsplash.com/photo-..."
+          style="font-size:0.85rem"
+        />
+
+        <div id="image-preview-wrap" style="margin-top:0.6rem;display:none">
+          <img
+            id="image-preview"
+            src=""
+            alt="Preview"
+            style="
+              width:100%;
+              height:160px;
+              object-fit:cover;
+              border-radius:var(--radius);
+              border:1px solid var(--border);
+            "
+          />
+        </div>
+      </div>
+
+      <div style="display:flex;gap:0.8rem;margin-top:1rem">
+        <button class="btn btn-primary" style="flex:1" onclick="handleSave()">
+          Save Item
+        </button>
+
+        <button class="btn btn-outline" onclick="closeModal()">
+          Cancel
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script src="../js/api.js"></script>
+  <script src="../js/auth.js"></script>
+  <script src="js/admin-common.js"></script>
+  <script src="js/menu-manage.js"></script>
+
+  <script>
+    const imageInput = document.getElementById("f-image");
+
+    if (imageInput) {
+      imageInput.addEventListener("input", function () {
+        const wrap = document.getElementById("image-preview-wrap");
+        const img  = document.getElementById("image-preview");
+        const url  = this.value.trim();
+
+        if (url) {
+          img.src = url;
+          img.onload = () => wrap.style.display = "block";
+          img.onerror = () => wrap.style.display = "none";
+        } else {
+          wrap.style.display = "none";
+        }
+      });
+    }
+  </script>
+
+</body>
+</html>

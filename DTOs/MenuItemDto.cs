@@ -7,6 +7,7 @@ public record MenuItemResponse(
     decimal Price,
     string Category,
     bool IsAvailable,
+    string? ImageUrl,
     DateTime CreatedAt
 );
 
@@ -15,7 +16,8 @@ public record CreateMenuItemRequest(
     string Description,
     decimal Price,
     string Category,
-    bool IsAvailable = true
+    bool IsAvailable = true,
+    string? ImageUrl = null
 );
 
 public record UpdateMenuItemRequest(
@@ -23,5 +25,6 @@ public record UpdateMenuItemRequest(
     string Description,
     decimal Price,
     string Category,
-    bool IsAvailable
+    bool IsAvailable,
+    string? ImageUrl = null
 );

@@ -1,0 +1,152 @@
+/* ── Page header row ─────────────────────────────────────── */
+.orders-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+}
+.orders-header .page-title { margin-bottom: 0; }
+
+/* ── Order card ──────────────────────────────────────────── */
+.order-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  margin-bottom: 1.1rem;
+  overflow: hidden;
+  transition: box-shadow 0.15s;
+}
+.order-card:hover { box-shadow: 0 4px 18px rgba(0,0,0,0.10); }
+
+/* ── Card header (always visible) ───────────────────────── */
+.order-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.1rem 1.3rem;
+  cursor: pointer;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+.order-card-header:hover { background: #fafafa; }
+
+.order-meta { display: flex; flex-direction: column; gap: 0.2rem; }
+
+.order-id {
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+.order-date {
+  font-size: 0.82rem;
+  color: var(--muted);
+}
+
+.order-card-right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.order-total {
+  font-size: 1.05rem;
+  font-weight: 800;
+}
+
+.order-items-count {
+  font-size: 0.85rem;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+.order-chevron {
+  font-size: 0.85rem;
+  color: var(--muted);
+  transition: transform 0.2s;
+  flex-shrink: 0;
+}
+.order-chevron.open { transform: rotate(180deg); }
+
+/* ── Expandable detail body ──────────────────────────────── */
+.order-card-body {
+  display: none;
+  border-top: 1px solid var(--border);
+  padding: 1.1rem 1.3rem;
+  background: var(--bg);
+}
+.order-card-body.open { display: block; }
+
+/* Item rows inside expanded card */
+.order-item-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 0.92rem;
+  gap: 1rem;
+}
+.order-item-row:last-of-type { border-bottom: none; }
+
+.order-item-name { font-weight: 600; flex: 1; }
+.order-item-qty  { color: var(--muted); white-space: nowrap; }
+.order-item-line { font-weight: 700; white-space: nowrap; }
+
+/* Notes row */
+.order-notes {
+  margin-top: 0.9rem;
+  padding: 0.6rem 0.9rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  font-size: 0.88rem;
+  color: var(--muted);
+}
+.order-notes strong { color: var(--text); }
+
+/* Cancel button row */
+.order-actions {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* ── Status badge colours ────────────────────────────────── */
+/* (reuses .badge + .badge-* from style.css) */
+
+/* ── Empty state ─────────────────────────────────────────── */
+.orders-empty {
+  text-align: center;
+  padding: 5rem 1rem;
+  color: var(--muted);
+}
+.orders-empty-icon { font-size: 3.5rem; margin-bottom: 1rem; }
+.orders-empty h2   { font-size: 1.3rem; margin-bottom: 0.5rem; color: var(--text); }
+
+/* ── Toast ───────────────────────────────────────────────── */
+.toast {
+  position: fixed;
+  bottom: 1.8rem;
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  background: #1a1a1a;
+  color: #fff;
+  padding: 0.7rem 1.5rem;
+  border-radius: 99px;
+  font-size: 0.92rem;
+  font-weight: 500;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s, transform 0.25s;
+  white-space: nowrap;
+  z-index: 999;
+}
+.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+/* ── Responsive ──────────────────────────────────────────── */
+@media (max-width: 600px) {
+  .order-card-header { flex-direction: column; align-items: flex-start; }
+  .order-card-right  { width: 100%; justify-content: space-between; }
+}

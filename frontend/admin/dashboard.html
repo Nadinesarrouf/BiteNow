@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>BiteNow Admin — Dashboard</title>
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml"/>
+  <link rel="stylesheet" href="../css/style.css"/>
+  <link rel="stylesheet" href="css/admin.css"/>
+</head>
+<body>
+
+  <!-- ── Top Navbar ─────────────────────────────────────── -->
+  <header class="navbar">
+    <a href="dashboard.html" class="logo">⚙️ BiteNow Admin</a>
+    <nav id="nav-links"></nav>
+  </header>
+
+  <!-- ── Admin Layout ───────────────────────────────────── -->
+  <div class="admin-layout">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-title">Main</div>
+      <a href="dashboard.html" class="active">📊 Dashboard</a>
+      <a href="menu-manage.html">🍽️ Menu Items</a>
+      <hr class="sidebar-divider"/>
+      <div class="sidebar-title">Orders</div>
+      <a href="orders.html">📋 All Orders</a>
+      <hr class="sidebar-divider"/>
+      <div class="sidebar-title">Account</div>
+      <a href="../index.html">🍔 Customer View</a>
+      <a href="#" onclick="adminLogout()">🚪 Logout</a>
+    </aside>
+
+    <!-- Main content -->
+    <main class="admin-main">
+      <h1 class="page-title">Dashboard</h1>
+
+      <!-- Stat cards -->
+      <div class="stats-grid" id="stats-grid">
+        <!-- 4 skeleton placeholders while loading -->
+        <div class="stat-card"><div class="spinner"></div></div>
+        <div class="stat-card"><div class="spinner"></div></div>
+        <div class="stat-card"><div class="spinner"></div></div>
+        <div class="stat-card"><div class="spinner"></div></div>
+      </div>
+
+      <!-- Recent orders table -->
+      <div class="section-card">
+        <div class="section-card-header">
+          <h2>📋 Recent Orders</h2>
+          <a href="orders.html" class="btn btn-outline btn-sm">View All</a>
+        </div>
+        <div class="section-card-body">
+          <div id="recent-orders-wrap">
+            <div class="spinner" style="margin:2rem auto"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Menu summary table -->
+      <div class="section-card">
+        <div class="section-card-header">
+          <h2>🍽️ Menu Overview</h2>
+          <a href="menu-manage.html" class="btn btn-outline btn-sm">Manage Menu</a>
+        </div>
+        <div class="section-card-body">
+          <div id="menu-summary-wrap">
+            <div class="spinner" style="margin:2rem auto"></div>
+          </div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- Toast -->
+  <div class="toast" id="toast"></div>
+
+  <script src="../js/api.js"></script>
+  <script src="../js/auth.js"></script>
+  <script src="js/admin-common.js"></script>
+  <script src="js/dashboard.js"></script>
+</body>
+</html>

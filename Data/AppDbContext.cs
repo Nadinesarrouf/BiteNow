@@ -84,14 +84,50 @@ public class AppDbContext : DbContext
                 CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, DateTimeKind.Utc)
             }
         );
-
         modelBuilder.Entity<MenuItem>().HasData(
-            new MenuItem { Id = 1, Name = "Margherita Pizza", Description = "Classic tomato and mozzarella", Price = 12.99m, Category = "Pizza", IsAvailable = true, CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, DateTimeKind.Utc) },
-            new MenuItem { Id = 2, Name = "Pepperoni Pizza",  Description = "Loaded with pepperoni",       Price = 14.99m, Category = "Pizza", IsAvailable = true, CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, DateTimeKind.Utc) },
-            new MenuItem { Id = 3, Name = "Caesar Salad",     Description = "Romaine, croutons, parmesan", Price = 8.50m,  Category = "Salad", IsAvailable = true, CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, DateTimeKind.Utc) },
-            new MenuItem { Id = 4, Name = "Garlic Bread",     Description = "Toasted with herb butter",    Price = 4.99m,  Category = "Sides", IsAvailable = true, CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, DateTimeKind.Utc) },
-            new MenuItem { Id = 5, Name = "Tiramisu",         Description = "Classic Italian dessert",     Price = 6.99m,  Category = "Dessert", IsAvailable = true, CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, DateTimeKind.Utc) }
-        );
+            new MenuItem {
+               Id = 1, Name = "Margherita Pizza",
+               Description = "Classic tomato and mozzarella",
+               Price = 12.99m, Category = "Pizza",
+               IsAvailable = true,
+               ImageUrl = "https://images.unsplash.com/photo-1574071318508-1cdbab80d002?w=600&q=80",
+               CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, DateTimeKind.Utc)
+            },
+            new MenuItem {
+               Id = 2, Name = "Pepperoni Pizza",
+               Description = "Loaded with pepperoni",
+               Price = 14.99m, Category = "Pizza",
+               IsAvailable = true,
+               ImageUrl = "https://images.unsplash.com/photo-1628840042765-356cda07504e?w=600&q=80",
+               CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, DateTimeKind.Utc)
+            },
+            new MenuItem {
+                Id = 3, Name = "Caesar Salad",
+                Description = "Romaine, croutons, parmesan",
+                Price = 8.50m, Category = "Salad",
+                IsAvailable = true,
+                ImageUrl = "https://images.unsplash.com/photo-1546793665-c74683f339c1?w=600&q=80",
+                CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, DateTimeKind.Utc)
+            },
+            new MenuItem {
+                Id = 4, Name = "Garlic Bread",
+                Description = "Toasted with herb butter",
+                Price = 4.99m, Category = "Sides",
+                IsAvailable = true,
+                ImageUrl = "https://images.unsplash.com/photo-1619531040576-f9416740661e?w=600&q=80",
+                CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, DateTimeKind.Utc)
+            },
+            new MenuItem {
+                Id = 5, Name = "Tiramisu",
+                Description = "Classic Italian dessert",
+                Price = 6.99m, Category = "Dessert",
+                IsAvailable = true,
+                ImageUrl = "https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?w=600&q=80",
+                CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, DateTimeKind.Utc)
+             }
+);
+
+       
     }
 }
 
