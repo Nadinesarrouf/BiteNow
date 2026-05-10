@@ -3,6 +3,7 @@ using System;
 using BiteNow.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BiteNow.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260507070649_AddPhoneLocationAddress")]
+    partial class AddPhoneLocationAddress
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.0");
@@ -180,10 +183,7 @@ namespace BiteNow.Migrations
 
                     b.Property<string>("Address")
                         .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasMaxLength(500)
-                        .HasColumnType("TEXT")
-                        .HasDefaultValue("");
+                        .HasColumnType("TEXT");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("TEXT");
@@ -195,10 +195,7 @@ namespace BiteNow.Migrations
 
                     b.Property<string>("Location")
                         .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasMaxLength(200)
-                        .HasColumnType("TEXT")
-                        .HasDefaultValue("");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -211,10 +208,7 @@ namespace BiteNow.Migrations
 
                     b.Property<string>("Phone")
                         .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasMaxLength(30)
-                        .HasColumnType("TEXT")
-                        .HasDefaultValue("");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Role")
                         .IsRequired()
@@ -233,13 +227,13 @@ namespace BiteNow.Migrations
                         new
                         {
                             Id = 1,
-                            Address = "Restaurant HQ",
+                            Address = "",
                             CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             Email = "admin@restaurant.com",
-                            Location = "Jounieh, Lebanon",
+                            Location = "",
                             Name = "Admin",
-                            PasswordHash = "$2a$11$placeholder",
-                            Phone = "+961 03 819 412",
+                            PasswordHash = "$2a$11$rBnqOGV.W0K.Q9z1xHmv7.placeholder.hash",
+                            Phone = "",
                             Role = "Admin"
                         },
                         new
@@ -248,10 +242,10 @@ namespace BiteNow.Migrations
                             Address = "",
                             CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             Email = "alice@example.com",
-                            Location = "Beirut",
+                            Location = "",
                             Name = "Alice Smith",
-                            PasswordHash = "$2a$11$placeholder",
-                            Phone = "+961 70 000 001",
+                            PasswordHash = "$2a$11$rBnqOGV.W0K.Q9z1xHmv7.placeholder.hash",
+                            Phone = "",
                             Role = "Customer"
                         });
                 });

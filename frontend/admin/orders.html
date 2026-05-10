@@ -25,6 +25,9 @@
       <a href="dashboard.html">📊 Dashboard</a>
       <a href="menu-manage.html">🍽️ Menu Items</a>
       <hr class="sidebar-divider"/>
+<div class="sidebar-title">Clients</div>
+<a href="clients.html">👥 All Clients</a>
+      <hr class="sidebar-divider"/>
       <div class="sidebar-title">Orders</div>
       <a href="orders.html" class="active">📋 All Orders</a>
       <hr class="sidebar-divider"/>
@@ -41,7 +44,7 @@
                   justify-content:space-between;margin-bottom:1.5rem">
         <h1 class="page-title" style="margin:0">📋 All Orders</h1>
         <button class="btn btn-outline btn-sm" onclick="loadOrders()">
-          🔄 Refresh
+          ⟳ Refresh
         </button>
       </div>
 
@@ -54,7 +57,7 @@
         <input
           type="text"
           id="search-input"
-          placeholder="🔍 Search by order # or customer name..."
+          placeholder=" Search by order # or customer name..."
           oninput="applyFilters()"
           style="padding:0.5rem 1rem;border:1px solid var(--border);
                  border-radius:var(--radius);font-size:0.92rem;

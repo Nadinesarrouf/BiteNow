@@ -46,7 +46,6 @@ async function loadOrders() {
 function renderStatusPills() {
   const container = document.getElementById("status-pills");
 
-  // Count per status
   const counts = STATUS_LIST.reduce((acc, s) => {
     acc[s] = s === "All"
       ? allOrders.length
@@ -120,6 +119,8 @@ function renderTable(orders) {
           <tr>
             <th>#</th>
             <th>Customer</th>
+            <th>Phone</th>
+            <th>Location</th>
             <th>Items</th>
             <th>Total</th>
             <th>Status</th>
@@ -141,6 +142,8 @@ function renderTable(orders) {
                     ID: ${o.userId}
                   </div>
                 </td>
+                <td style="font-size:0.85rem">${o.userPhone ?? "—"}</td>
+                <td style="font-size:0.85rem">${o.userLocation ?? "—"}</td>
                 <td>${o.itemCount} item${o.itemCount !== 1 ? "s" : ""}</td>
                 <td><strong>$${o.totalAmount.toFixed(2)}</strong></td>
                 <td id="status-cell-${o.id}">
@@ -151,13 +154,10 @@ function renderTable(orders) {
                 </td>
                 <td>
                   <div class="row-actions">
-                    <!-- View detail button -->
                     <button
                       class="btn btn-outline btn-sm"
                       onclick="openDetailModal(${o.id})"
                     >🔍 View</button>
-
-                    <!-- Dynamic next-step buttons -->
                     ${nextSteps.map(next => `
                       <button
                         class="btn btn-sm"
@@ -207,12 +207,10 @@ function nextBtnLabel(status) {
 // ─────────────────────────────────────────────────────────────
 
 async function handleStatusUpdate(orderId, newStatus) {
-  // Disable all action buttons for this row during update
   const row = document.getElementById(`order-row-${orderId}`);
   const btns = row?.querySelectorAll("button");
   btns?.forEach(b => { b.disabled = true; });
 
-  // PATCH /api/orders/{id}/status
   const { ok, data } = await api.patch(
     `/api/orders/${orderId}/status`,
     { status: newStatus }
@@ -220,14 +218,12 @@ async function handleStatusUpdate(orderId, newStatus) {
 
   if (ok) {
     showToast(`Order #${orderId} → ${newStatus}`);
-    // Reload full list to reflect new state + updated buttons
     await loadOrders();
   } else {
     const msg = typeof data === "string"
       ? data
       : data?.message ?? "Failed to update status.";
     showToast(`❌ ${msg}`);
-    // Re-enable buttons on failure
     btns?.forEach(b => { b.disabled = false; });
   }
 }
@@ -237,14 +233,17 @@ async function handleStatusUpdate(orderId, newStatus) {
 // ─────────────────────────────────────────────────────────────
 
 async function openDetailModal(orderId) {
-  document.getElementById("detail-modal-title").textContent =
-    `Order #${orderId}`;
+  document.getElementById("detail-modal-title").textContent = `Order #${orderId}`;
   document.getElementById("detail-modal-body").innerHTML =
     `<div class="spinner" style="margin:2rem auto"></div>`;
   document.getElementById("detail-modal").classList.add("open");
 
-  // GET /api/orders/{id} for full detail including items
-  const { ok, data } = await api.get(`/api/orders/${orderId}`);
+  // Fetch order + user in parallel
+  const [orderRes, ] = await Promise.all([
+    api.get(`/api/orders/${orderId}`)
+  ]);
+
+  const { ok, data } = orderRes;
 
   if (!ok) {
     document.getElementById("detail-modal-body").innerHTML =
@@ -252,11 +251,13 @@ async function openDetailModal(orderId) {
     return;
   }
 
+  //  data already has it
+  const phone    = data.userPhone    || "—";
+  const location = data.userLocation || "—";
   const nextSteps = TRANSITIONS[data.status] ?? [];
 
   document.getElementById("detail-modal-body").innerHTML = `
 
-    <!-- Meta info grid -->
     <div style="display:grid;grid-template-columns:1fr 1fr;
                 gap:0.8rem;margin-bottom:1.3rem">
       <div>
@@ -274,6 +275,21 @@ async function openDetailModal(orderId) {
                     margin-bottom:2px">Status</div>
         ${statusBadge(data.status)}
       </div>
+
+      <div>
+        <div style="font-size:0.75rem;font-weight:700;
+                    text-transform:uppercase;color:var(--muted);
+                    margin-bottom:2px">📞 Phone</div>
+        <div style="font-size:0.88rem">${phone}</div>
+      </div>
+
+      <div>
+        <div style="font-size:0.75rem;font-weight:700;
+                    text-transform:uppercase;color:var(--muted);
+                    margin-bottom:2px">📍 Location</div>
+        <div style="font-size:0.88rem">${location}</div>
+      </div>
+
       <div>
         <div style="font-size:0.75rem;font-weight:700;
                     text-transform:uppercase;color:var(--muted);
@@ -288,7 +304,6 @@ async function openDetailModal(orderId) {
       </div>
     </div>
 
-    <!-- Items list -->
     <div style="font-size:0.75rem;font-weight:700;text-transform:uppercase;
                 color:var(--muted);margin-bottom:0.5rem">
       Order Items
@@ -309,7 +324,6 @@ async function openDetailModal(orderId) {
         </div>
       `).join("")}
 
-      <!-- Total row -->
       <div style="display:flex;justify-content:space-between;
                   align-items:center;padding:0.75rem 1rem;
                   background:var(--bg);border-top:2px solid var(--border)">
@@ -320,7 +334,6 @@ async function openDetailModal(orderId) {
       </div>
     </div>
 
-    <!-- Notes -->
     ${data.notes ? `
       <div style="background:var(--bg);border:1px solid var(--border);
                   border-radius:var(--radius);padding:0.7rem 1rem;
@@ -328,7 +341,6 @@ async function openDetailModal(orderId) {
         <strong>📝 Notes:</strong> ${data.notes}
       </div>` : ""}
 
-    <!-- Status action buttons -->
     ${nextSteps.length > 0 ? `
       <div style="font-size:0.75rem;font-weight:700;text-transform:uppercase;
                   color:var(--muted);margin-bottom:0.6rem">
@@ -358,7 +370,6 @@ async function openDetailModal(orderId) {
 
 // ── Update status from inside the detail modal ────────────────
 async function handleStatusFromModal(orderId, newStatus) {
-  // Disable all buttons in modal during update
   const modalBtns = document.querySelectorAll("#detail-modal-body button");
   modalBtns.forEach(b => { b.disabled = true; });
 
@@ -370,7 +381,7 @@ async function handleStatusFromModal(orderId, newStatus) {
   if (ok) {
     showToast(`Order #${orderId} → ${newStatus}`);
     closeDetailModal();
-    await loadOrders(); // refresh table behind modal
+    await loadOrders();
   } else {
     const msg = typeof data === "string"
       ? data
@@ -384,7 +395,6 @@ function closeDetailModal() {
   document.getElementById("detail-modal").classList.remove("open");
 }
 
-// Close modal on overlay click
 document.getElementById("detail-modal").addEventListener("click", function(e) {
   if (e.target === this) closeDetailModal();
 });

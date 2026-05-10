@@ -94,6 +94,48 @@
       color: var(--muted);
       border-top: 1px solid var(--border);
     }
+    
+/* full screen dark overlay */
+.tutorial-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.65);
+  z-index: 9998;
+}
+
+/* popup box */
+.tutorial-box {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  padding: 22px;
+  width: 300px;
+  border-radius: 12px;
+  z-index: 9999;
+  text-align: center;
+}
+
+.tutorial-actions {
+  margin-top: 15px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.hidden {
+  display: none;
+}
+
+/* spotlight effect */
+.spotlight {
+  position: relative;
+  z-index: 10000;
+  box-shadow: 0 0 0 4px #ff4d2d, 0 0 20px rgba(255,77,45,0.6);
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
   </style>
 </head>
 <body>
@@ -145,19 +187,39 @@
     <h2>Hungry? Let's fix that.</h2>
     <p>Sign up for free and place your first order in minutes.</p>
     <a href="menu.html" class="btn btn-primary" style="padding: 0.75rem 2.5rem; font-size: 1rem;">
-      See Today's Menu →
+      Your Next Bite Awaits
     </a>
   </section>
 
   <footer>
     &copy; 2026 BiteNow. Made with ❤️ and hunger.
   </footer>
+  <!-- ── Guided Tutor Overlay ───────────────────────────── -->
+<div id="tutorial-overlay" class="tutorial-overlay hidden"></div>
 
+<div id="tutorial-box" class="tutorial-box hidden">
+  <h2 id="tutorial-title">Welcome 👋</h2>
+  <p id="tutorial-text">Let’s explore BiteNow together</p>
+
+  <div class="tutorial-actions">
+    <button onclick="nextStep()" class="btn btn-primary">Next</button>
+    <button onclick="closeTutorial()" class="btn btn-outline">Skip</button>
+  </div>
+</div>
+<div id="tutorial-overlay" class="tutorial-overlay hidden"></div>
+
+<div id="tutorial-box" class="tutorial-box hidden">
+  <h2 id="tutorial-title"></h2>
+  <p id="tutorial-text"></p>
+
+  <button onclick="nextStep()">Next</button>
+  <button onclick="closeTutorial()">Skip</button>
+</div>
   <!-- ── Scripts ─────────────────────────────────────────── -->
   <script src="js/api.js"></script>
   <script src="js/auth.js"></script>
   <script src="js/cart.js"></script>
   <script src="js/navbar.js"></script>
-  <script src="js/home.js"></script>
+  <script src="js/tutorial.js"></script>
 </body>
 </html>

@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>BiteNow Admin — Clients</title>
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml"/>
+  <link rel="stylesheet" href="../css/style.css"/>
+  <link rel="stylesheet" href="css/admin.css"/>
+</head>
+<body>
+
+  <!-- ── Top Navbar ─────────────────────────────────────── -->
+  <header class="navbar">
+    <a href="dashboard.html" class="logo">⚙️ BiteNow Admin</a>
+    <nav id="nav-links"></nav>
+  </header>
+
+  <!-- ── Admin Layout ───────────────────────────────────── -->
+  <div class="admin-layout">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-title">Main</div>
+      <a href="dashboard.html">📊 Dashboard</a>
+      <a href="menu-manage.html">🍽️ Menu Items</a>
+
+      <hr class="sidebar-divider"/>
+
+      <div class="sidebar-title">Orders</div>
+      <a href="orders.html">📋 All Orders</a>
+
+      <hr class="sidebar-divider"/>
+
+      <div class="sidebar-title">Clients</div>
+      <a href="clients.html" class="active">👥 All Clients</a>
+
+      <hr class="sidebar-divider"/>
+
+      <div class="sidebar-title">Account</div>
+      <a href="../index.html">🍔 Customer View</a>
+      <a href="#" onclick="adminLogout()">🚪 Logout</a>
+    </aside>
+
+    <!-- Main content -->
+    <main class="admin-main">
+
+      <!-- Page header -->
+      <div style="display:flex;align-items:center;
+                  justify-content:space-between;margin-bottom:1.5rem">
+        <h1 class="page-title" style="margin:0">👥 Clients</h1>
+        <button class="btn btn-outline btn-sm" onclick="loadClients()">
+          ⟳ Refresh
+        </button>
+      </div>
+
+      <!-- Search bar -->
+      <div style="margin-bottom:1.2rem">
+        <input
+          type="text"
+          id="search-input"
+          placeholder=" Search by name, email, phone or location…"
+          oninput="applySearch()"
+          style="
+            padding:0.5rem 1rem;
+            border:1px solid var(--border);
+            border-radius:var(--radius);
+            font-size:0.92rem;
+            background:var(--surface);
+            width:100%;
+            max-width:440px;
+          "
+        />
+      </div>
+
+      <!-- Clients table -->
+      <div class="section-card">
+        <div class="section-card-body">
+          <div id="clients-wrap">
+            <div class="spinner" style="margin:2rem auto"></div>
+          </div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- ── Address Edit Modal ──────────────────────────────── -->
+  <div class="modal-overlay" id="addr-modal">
+    <div class="modal" style="max-width:460px">
+
+      <button class="modal-close" onclick="closeAddressModal()">✕</button>
+
+      <h2 style="margin-bottom:0.3rem">📍 Edit Address</h2>
+      <p style="color:var(--muted);font-size:0.9rem;margin-bottom:1.2rem">
+        Client: <strong id="addr-modal-name"></strong>
+      </p>
+
+      <div
+        id="addr-error"
+        style="
+          display:none;
+          background:#fde8e8;
+          color:#9b1c1c;
+          border:1px solid #f5c2c2;
+          border-radius:var(--radius);
+          padding:0.6rem 1rem;
+          font-size:0.875rem;
+          margin-bottom:1rem;
+        "
+      ></div>
+
+      <div class="form-group">
+        <label for="addr-input">Home / Delivery Address</label>
+        <textarea
+          id="addr-input"
+          rows="3"
+          placeholder="e.g. Building 4, Rue de l'Église, Jounieh, Lebanon"
+          style="resize:vertical"
+        ></textarea>
+        <small style="color:var(--muted);font-size:0.78rem">
+          This address will be used for delivery by the restaurant.
+        </small>
+      </div>
+
+      <div style="display:flex;gap:0.8rem;margin-top:1rem">
+        <button
+          id="addr-save-btn"
+          class="btn btn-primary"
+          style="flex:1"
+          onclick="saveAddress()"
+        >
+          Save Address
+        </button>
+        <button class="btn btn-outline" onclick="closeAddressModal()">
+          Cancel
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div class="toast" id="toast"></div>
+
+  <script src="../js/api.js"></script>
+  <script src="../js/auth.js"></script>
+  <script src="js/admin-common.js"></script>
+  <script src="js/clients.js"></script>
+
+</body>
+</html>

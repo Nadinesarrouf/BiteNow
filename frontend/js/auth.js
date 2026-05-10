@@ -6,7 +6,7 @@ function saveUser(user) {
   localStorage.setItem(USER_KEY, JSON.stringify(user));
 }
 
-// ─── Get the currently logged-in user (or null) ───────────────
+// ─── Get logged-in user ───────────────────────────────────────
 function getUser() {
   const raw = localStorage.getItem(USER_KEY);
   return raw ? JSON.parse(raw) : null;
@@ -32,17 +32,53 @@ function isCustomer() {
   return user?.role === "Customer";
 }
 
-// ─── Guard: redirect if not logged in ────────────────────────
+// ─── Guards ───────────────────────────────────────────────────
 function requireLogin(redirectTo = "login.html") {
   if (!isLoggedIn()) {
     window.location.href = redirectTo;
   }
 }
 
-// ─── Guard: redirect if not admin ────────────────────────────
 function requireAdmin(redirectTo = "../index.html") {
   if (!isAdmin()) {
     alert("Access denied. Admins only.");
     window.location.href = redirectTo;
   }
+}
+
+// ─────────────────────────────────────────────────────────────
+// ⭐ ADDED FEATURES (PROFILE + ORDERS SUPPORT)
+// ─────────────────────────────────────────────────────────────
+
+// 📍 Get user location
+function getUserLocation() {
+  const user = getUser();
+  return user?.location || null;
+}
+
+// 📞 Get user phone number (NEW)
+function getUserPhone() {
+  const user = getUser();
+  return user?.phone || null;
+}
+
+// 👤 Get user id safely
+function getUserId() {
+  const user = getUser();
+  return user?.id || null;
+}
+
+// ✏️ Update user locally (for profile edits later)
+function updateUser(updatedFields) {
+  const user = getUser();
+  if (!user) return;
+
+  const newUser = { ...user, ...updatedFields };
+  saveUser(newUser);
+}
+
+// 🚪 Safe logout
+function safeLogout() {
+  logoutUser();
+  window.location.href = "index.html";
 }
