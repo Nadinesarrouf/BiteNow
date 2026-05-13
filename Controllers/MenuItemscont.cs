@@ -78,6 +78,7 @@ public class MenuItemsController : ControllerBase
             Price       = req.Price,
             Category    = req.Category.Trim(),
             IsAvailable = req.IsAvailable,
+            ImageUrl    = req.ImageUrl?.Trim(),
             CreatedAt   = DateTime.UtcNow
         };
 
@@ -102,6 +103,7 @@ public class MenuItemsController : ControllerBase
         item.Price       = req.Price;
         item.Category    = req.Category.Trim();
         item.IsAvailable = req.IsAvailable;
+        item.ImageUrl    = req.ImageUrl?.Trim();
 
         await _db.SaveChangesAsync();
         return Ok(ToResponse(item));
@@ -137,6 +139,6 @@ public class MenuItemsController : ControllerBase
 
     // ── Mapping helper ──────────────────────────────────────
     private static MenuItemResponse ToResponse(MenuItem m) => new(
-        m.Id, m.Name, m.Description, m.Price, m.Category, m.IsAvailable, m.CreatedAt
+        m.Id, m.Name, m.Description, m.Price, m.Category, m.IsAvailable,m.ImageUrl, m.CreatedAt
     );
 }

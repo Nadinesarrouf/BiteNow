@@ -8,6 +8,7 @@ public class MenuItem
     public decimal Price { get; set; }          // Always decimal for money
     public string Category { get; set; } = string.Empty;
     public bool IsAvailable { get; set; } = true;
+    public string? ImageUrl { get; set; } 
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
     // Navigation

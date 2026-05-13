@@ -14,6 +14,8 @@ public record OrderResponse(
     int Id,
     int UserId,
     string UserName,
+    string UserPhone,
+    string UserLocation,
     string Status,
     string Notes,
     decimal TotalAmount,
@@ -24,6 +26,10 @@ public record OrderResponse(
 
 public record OrderSummaryResponse(
     int Id,
+    int UserId,
+    string UserName,
+    string UserPhone,
+    string UserLocation,
     string Status,
     decimal TotalAmount,
     int ItemCount,

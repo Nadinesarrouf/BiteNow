@@ -34,6 +34,9 @@ namespace BiteNow.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("ImageUrl")
+                        .HasColumnType("TEXT");
+
                     b.Property<bool>("IsAvailable")
                         .HasColumnType("INTEGER");
 
@@ -56,6 +59,7 @@ namespace BiteNow.Migrations
                             Category = "Pizza",
                             CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             Description = "Classic tomato and mozzarella",
+                            ImageUrl = "https://images.unsplash.com/photo-1574071318508-1cdbab80d002?w=600&q=80",
                             IsAvailable = true,
                             Name = "Margherita Pizza",
                             Price = 12.99m
@@ -66,6 +70,7 @@ namespace BiteNow.Migrations
                             Category = "Pizza",
                             CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             Description = "Loaded with pepperoni",
+                            ImageUrl = "https://images.unsplash.com/photo-1628840042765-356cda07504e?w=600&q=80",
                             IsAvailable = true,
                             Name = "Pepperoni Pizza",
                             Price = 14.99m
@@ -76,6 +81,7 @@ namespace BiteNow.Migrations
                             Category = "Salad",
                             CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             Description = "Romaine, croutons, parmesan",
+                            ImageUrl = "https://images.unsplash.com/photo-1546793665-c74683f339c1?w=600&q=80",
                             IsAvailable = true,
                             Name = "Caesar Salad",
                             Price = 8.50m
@@ -86,6 +92,7 @@ namespace BiteNow.Migrations
                             Category = "Sides",
                             CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             Description = "Toasted with herb butter",
+                            ImageUrl = "https://images.unsplash.com/photo-1619531040576-f9416740661e?w=600&q=80",
                             IsAvailable = true,
                             Name = "Garlic Bread",
                             Price = 4.99m
@@ -96,6 +103,7 @@ namespace BiteNow.Migrations
                             Category = "Dessert",
                             CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             Description = "Classic Italian dessert",
+                            ImageUrl = "https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?w=600&q=80",
                             IsAvailable = true,
                             Name = "Tiramisu",
                             Price = 6.99m
@@ -170,6 +178,13 @@ namespace BiteNow.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(500)
+                        .HasColumnType("TEXT")
+                        .HasDefaultValue("");
+
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("TEXT");
 
@@ -177,6 +192,13 @@ namespace BiteNow.Migrations
                         .IsRequired()
                         .HasMaxLength(200)
                         .HasColumnType("TEXT");
+
+                    b.Property<string>("Location")
+                        .IsRequired()
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(200)
+                        .HasColumnType("TEXT")
+                        .HasDefaultValue("");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -186,6 +208,13 @@ namespace BiteNow.Migrations
                     b.Property<string>("PasswordHash")
                         .IsRequired()
                         .HasColumnType("TEXT");
+
+                    b.Property<string>("Phone")
+                        .IsRequired()
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(30)
+                        .HasColumnType("TEXT")
+                        .HasDefaultValue("");
 
                     b.Property<string>("Role")
                         .IsRequired()
@@ -204,19 +233,25 @@ namespace BiteNow.Migrations
                         new
                         {
                             Id = 1,
+                            Address = "Restaurant HQ",
                             CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             Email = "admin@restaurant.com",
+                            Location = "Jounieh, Lebanon",
                             Name = "Admin",
-                            PasswordHash = "$2a$11$rBnqOGV.W0K.Q9z1xHmv7.placeholder.hash",
+                            PasswordHash = "$2a$11$placeholder",
+                            Phone = "+961 03 819 412",
                             Role = "Admin"
                         },
                         new
                         {
                             Id = 2,
+                            Address = "",
                             CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             Email = "alice@example.com",
+                            Location = "Beirut",
                             Name = "Alice Smith",
-                            PasswordHash = "$2a$11$rBnqOGV.W0K.Q9z1xHmv7.placeholder.hash",
+                            PasswordHash = "$2a$11$placeholder",
+                            Phone = "+961 70 000 001",
                             Role = "Customer"
                         });
                 });

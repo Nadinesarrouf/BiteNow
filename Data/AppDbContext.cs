@@ -7,9 +7,9 @@ public class AppDbContext : DbContext
 {
     public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
-    public DbSet<User> Users => Set<User>();
-    public DbSet<MenuItem> MenuItems => Set<MenuItem>();
-    public DbSet<Order> Orders => Set<Order>();
+    public DbSet<User>      Users      => Set<User>();
+    public DbSet<MenuItem>  MenuItems  => Set<MenuItem>();
+    public DbSet<Order>     Orders     => Set<Order>();
     public DbSet<OrderItem> OrderItems => Set<OrderItem>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -22,6 +22,10 @@ public class AppDbContext : DbContext
             e.Property(u => u.Email).IsRequired().HasMaxLength(200);
             e.Property(u => u.Name).IsRequired().HasMaxLength(100);
             e.Property(u => u.Role).HasDefaultValue("Customer");
+            // NEW fields — all optional, default empty string
+            e.Property(u => u.Phone).HasMaxLength(30).HasDefaultValue("");
+            e.Property(u => u.Location).HasMaxLength(200).HasDefaultValue("");
+            e.Property(u => u.Address).HasMaxLength(500).HasDefaultValue("");
         });
 
         // ── MenuItem ─────────────────────────────────────────
@@ -66,34 +70,36 @@ public class AppDbContext : DbContext
         modelBuilder.Entity<User>().HasData(
             new User
             {
-                Id = 1,
-                Name = "Admin",
-                Email = "admin@restaurant.com",
-                // In a real project, use a proper hash. This is BCrypt of "admin123"
-                PasswordHash = "$2a$11$rBnqOGV.W0K.Q9z1xHmv7.placeholder.hash",
-                Role = "Admin",
-                CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, DateTimeKind.Utc)
+                Id           = 1,
+                Name         = "Admin",
+                Email        = "admin@restaurant.com",
+                PasswordHash = "$2a$11$placeholder",
+                Role         = "Admin",
+                Phone        = "+961 03 819 412",
+                Location     = "Jounieh, Lebanon",
+                Address      = "Restaurant HQ",
+                CreatedAt    = new DateTime(2024, 1, 1, 0, 0, 0, DateTimeKind.Utc)
             },
             new User
             {
-                Id = 2,
-                Name = "Alice Smith",
-                Email = "alice@example.com",
-                PasswordHash = "$2a$11$rBnqOGV.W0K.Q9z1xHmv7.placeholder.hash",
-                Role = "Customer",
-                CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, DateTimeKind.Utc)
+                Id           = 2,
+                Name         = "Alice Smith",
+                Email        = "alice@example.com",
+                PasswordHash = "$2a$11$placeholder",
+                Role         = "Customer",
+                Phone        = "+961 70 000 001",
+                Location     = "Beirut",
+                Address      = "",
+                CreatedAt    = new DateTime(2024, 1, 1, 0, 0, 0, DateTimeKind.Utc)
             }
         );
 
         modelBuilder.Entity<MenuItem>().HasData(
-            new MenuItem { Id = 1, Name = "Margherita Pizza", Description = "Classic tomato and mozzarella", Price = 12.99m, Category = "Pizza", IsAvailable = true, CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, DateTimeKind.Utc) },
-            new MenuItem { Id = 2, Name = "Pepperoni Pizza",  Description = "Loaded with pepperoni",       Price = 14.99m, Category = "Pizza", IsAvailable = true, CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, DateTimeKind.Utc) },
-            new MenuItem { Id = 3, Name = "Caesar Salad",     Description = "Romaine, croutons, parmesan", Price = 8.50m,  Category = "Salad", IsAvailable = true, CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, DateTimeKind.Utc) },
-            new MenuItem { Id = 4, Name = "Garlic Bread",     Description = "Toasted with herb butter",    Price = 4.99m,  Category = "Sides", IsAvailable = true, CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, DateTimeKind.Utc) },
-            new MenuItem { Id = 5, Name = "Tiramisu",         Description = "Classic Italian dessert",     Price = 6.99m,  Category = "Dessert", IsAvailable = true, CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, DateTimeKind.Utc) }
+            new MenuItem { Id = 1, Name = "Margherita Pizza",   Description = "Classic tomato and mozzarella",  Price = 12.99m, Category = "Pizza",   IsAvailable = true, ImageUrl = "https://images.unsplash.com/photo-1574071318508-1cdbab80d002?w=600&q=80", CreatedAt = new DateTime(2024,1,1,0,0,0,DateTimeKind.Utc) },
+            new MenuItem { Id = 2, Name = "Pepperoni Pizza",    Description = "Loaded with pepperoni",          Price = 14.99m, Category = "Pizza",   IsAvailable = true, ImageUrl = "https://images.unsplash.com/photo-1628840042765-356cda07504e?w=600&q=80", CreatedAt = new DateTime(2024,1,1,0,0,0,DateTimeKind.Utc) },
+            new MenuItem { Id = 3, Name = "Caesar Salad",       Description = "Romaine, croutons, parmesan",    Price = 8.50m,  Category = "Salad",   IsAvailable = true, ImageUrl = "https://images.unsplash.com/photo-1546793665-c74683f339c1?w=600&q=80", CreatedAt = new DateTime(2024,1,1,0,0,0,DateTimeKind.Utc) },
+            new MenuItem { Id = 4, Name = "Garlic Bread",       Description = "Toasted with herb butter",       Price = 4.99m,  Category = "Sides",   IsAvailable = true, ImageUrl = "https://images.unsplash.com/photo-1619531040576-f9416740661e?w=600&q=80", CreatedAt = new DateTime(2024,1,1,0,0,0,DateTimeKind.Utc) },
+            new MenuItem { Id = 5, Name = "Tiramisu",           Description = "Classic Italian dessert",        Price = 6.99m,  Category = "Dessert", IsAvailable = true, ImageUrl = "https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?w=600&q=80", CreatedAt = new DateTime(2024,1,1,0,0,0,DateTimeKind.Utc) }
         );
     }
 }
-
-
-

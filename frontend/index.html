@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BiteNow — Order Fresh Food</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml"/>
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    /* ── Hero ───────────────────────────────────────────── */
+    .hero {
+      background: linear-gradient(135deg, #e8532a 0%, #c94420 100%);
+      color: #fff;
+      padding: 5rem 2rem;
+      text-align: center;
+    }
+    .hero h1 {
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 800;
+      margin-bottom: 1rem;
+      line-height: 1.2;
+    }
+    .hero p {
+      font-size: 1.15rem;
+      opacity: 0.92;
+      max-width: 480px;
+      margin: 0 auto 2rem;
+    }
+    .hero-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+    .btn-white {
+      background: #fff;
+      color: var(--primary);
+      font-weight: 700;
+      padding: 0.75rem 2rem;
+      border-radius: var(--radius);
+      border: none;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: opacity 0.15s;
+      text-decoration: none;
+      display: inline-block;
+    }
+    .btn-white:hover { opacity: 0.9; text-decoration: none; }
+    .btn-ghost {
+      background: transparent;
+      color: #fff;
+      border: 2px solid rgba(255,255,255,0.7);
+      font-weight: 700;
+      padding: 0.75rem 2rem;
+      border-radius: var(--radius);
+      cursor: pointer;
+      font-size: 1rem;
+      transition: background 0.15s;
+      text-decoration: none;
+      display: inline-block;
+    }
+    .btn-ghost:hover { background: rgba(255,255,255,0.15); text-decoration: none; }
+
+    /* ── Features strip ──────────────────────────────────── */
+    .features {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 2rem;
+      padding: 3.5rem 2rem;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .feature {
+      text-align: center;
+      flex: 1;
+      min-width: 180px;
+    }
+    .feature-icon { font-size: 2.4rem; margin-bottom: 0.6rem; }
+    .feature h3 { font-size: 1.05rem; margin-bottom: 0.3rem; }
+    .feature p  { font-size: 0.88rem; color: var(--muted); }
+
+    /* ── CTA banner ──────────────────────────────────────── */
+    .cta-banner {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 3rem 2rem;
+      text-align: center;
+    }
+    .cta-banner h2 { font-size: 1.6rem; margin-bottom: 0.5rem; }
+    .cta-banner p  { color: var(--muted); margin-bottom: 1.5rem; }
+
+    /* ── Footer ──────────────────────────────────────────── */
+    footer {
+      text-align: center;
+      padding: 1.5rem;
+      font-size: 0.85rem;
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+    }
+    
+/* full screen dark overlay */
+.tutorial-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.65);
+  z-index: 9998;
+}
+
+/* popup box */
+.tutorial-box {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  padding: 22px;
+  width: 300px;
+  border-radius: 12px;
+  z-index: 9999;
+  text-align: center;
+}
+
+.tutorial-actions {
+  margin-top: 15px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.hidden {
+  display: none;
+}
+
+/* spotlight effect */
+.spotlight {
+  position: relative;
+  z-index: 10000;
+  box-shadow: 0 0 0 4px #ff4d2d, 0 0 20px rgba(255,77,45,0.6);
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+  </style>
+</head>
+<body>
+
+  <!-- ── Navbar ─────────────────────────────────────────── -->
+  <header class="navbar">
+    <a href="index.html" class="logo">🍔 BiteNow</a>
+    <nav id="nav-links">
+      <!-- Filled by JS based on login state -->
+    </nav>
+  </header>
+
+  <!-- ── Hero ───────────────────────────────────────────── -->
+  <section class="hero">
+    <h1>Fresh food,<br>delivered fast 🚀</h1>
+    <p>Browse our menu, build your order, and track it in real time — all in one place.</p>
+    <div class="hero-btns">
+      <a href="menu.html" class="btn-white">Browse Menu</a>
+      <a href="signup.html" class="btn-ghost" id="hero-signup-btn">Create Account</a>
+    </div>
+  </section>
+
+  <!-- ── Features ───────────────────────────────────────── -->
+  <section class="features">
+    <div class="feature">
+      <div class="feature-icon">🍽️</div>
+      <h3>Fresh Menu</h3>
+      <p>Handpicked items updated daily by our kitchen team.</p>
+    </div>
+    <div class="feature">
+      <div class="feature-icon">⚡</div>
+      <h3>Fast Ordering</h3>
+      <p>Add to cart and checkout in under a minute.</p>
+    </div>
+    <div class="feature">
+      <div class="feature-icon">📦</div>
+      <h3>Live Tracking</h3>
+      <p>Watch your order status update in real time.</p>
+    </div>
+    <div class="feature">
+      <div class="feature-icon">🔒</div>
+      <h3>Secure & Simple</h3>
+      <p>Your data is safe. No fuss, no clutter.</p>
+    </div>
+  </section>
+
+  <!-- ── CTA ────────────────────────────────────────────── -->
+  <section class="cta-banner">
+    <h2>Hungry? Let's fix that.</h2>
+    <p>Sign up for free and place your first order in minutes.</p>
+    <a href="menu.html" class="btn btn-primary" style="padding: 0.75rem 2.5rem; font-size: 1rem;">
+      Your Next Bite Awaits
+    </a>
+  </section>
+
+  <footer>
+    &copy; 2026 BiteNow. Made with ❤️ and hunger.
+  </footer>
+  <!-- ── Guided Tutor Overlay ───────────────────────────── -->
+<div id="tutorial-overlay" class="tutorial-overlay hidden"></div>
+
+<div id="tutorial-box" class="tutorial-box hidden">
+  <h2 id="tutorial-title">Welcome 👋</h2>
+  <p id="tutorial-text">Let’s explore BiteNow together</p>
+
+  <div class="tutorial-actions">
+    <button onclick="nextStep()" class="btn btn-primary">Next</button>
+    <button onclick="closeTutorial()" class="btn btn-outline">Skip</button>
+  </div>
+</div>
+<div id="tutorial-overlay" class="tutorial-overlay hidden"></div>
+
+<div id="tutorial-box" class="tutorial-box hidden">
+  <h2 id="tutorial-title"></h2>
+  <p id="tutorial-text"></p>
+
+  <button onclick="nextStep()">Next</button>
+  <button onclick="closeTutorial()">Skip</button>
+</div>
+  <!-- ── Scripts ─────────────────────────────────────────── -->
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/navbar.js"></script>
+  <script src="js/tutorial.js"></script>
+</body>
+</html>
